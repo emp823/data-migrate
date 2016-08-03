@@ -13,13 +13,14 @@ module DataMigrate
 
       def create_data_migration
         set_local_assigns!
-        unless  options.skip_schema_migration?
+        if options.plus_schema_migration?
           migration_template "migration.rb", "db/migrate/#{file_name}.rb"
         end
         migration_template "data_migration.rb", "db/data/#{file_name}.rb"
       end
 
       protected
+
       attr_reader :migration_action
 
       def self.next_migration_number(dirname)
